@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Create News</h2>
+
+<input id="title" placeholder="Title"><br><br>
+<textarea id="body" placeholder="News content"></textarea><br><br>
+<button onclick="createNews()">Submit</button>
+
+<script src="utils.js"></script>
+<script>
+requireLogin();
+
+function createNews() {
+  if (!title.value) return alert("Title required");
+  if (body.value.length < 20) return alert("Body must be at least 20 chars");
+
+  fetch(`${API}/news`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title: title.value,
+      body: body.value,
+      author_id: getUser().id,
+      comments: []
+    })
+  }).then(() => location.href = "news.html");
+}
+</script>
+</body>
+</html>

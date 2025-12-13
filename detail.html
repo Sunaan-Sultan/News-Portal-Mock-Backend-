@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body onload="loadDetails()">
+
+<h2 id="title"></h2>
+<p id="body"></p>
+
+<h4>Comments</h4>
+<ul id="commentList"></ul>
+
+<input id="commentText" placeholder="Write a comment">
+<button onclick="addComment()">Add</button>
+
+<script src="utils.js"></script>
+<script>
+requireLogin();
+
+const id = new URLSearchParams(location.search).get("id");
+let newsData;
+
+async function loadDetails() {
+  newsData = await fetch(`${API}/news/${id}`).then(r => r.json());
+  const author = await fetch(`${API}/users/${newsData.author_id}`).then(r => r.json());
+
+  title.innerText = newsData.title;
+  body.innerText = `${newsData.body} (by ${author.name})`;
+
+  commentList.innerHTML = "";
+  for (let c of newsData.comments) {
+    const user = await fetch(`${API}/users/${c.user_id}`).then(r => r.json());
+    commentList.innerHTML += `<li>${user.name}: ${c.text}</li>`;
+  }
+}
+
+function addComment() {
+  if (!commentText.value) return;
+
+  newsData.comments.push({
+    user_id: getUser().id,
+    text: commentText.value
+  });
+
+  fetch(`${API}/news/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ comments: newsData.comments })
+  }).then(() => {
+    commentText.value = "";
+    loadDetails();
+  });
+}
+</script>
+</body>
+</html>

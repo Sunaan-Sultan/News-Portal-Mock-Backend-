@@ -1,0 +1,65 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Alice Rahman",
+      "email": "alice@example.com"
+    },
+    {
+      "id": "2",
+      "name": "Karim Hossain",
+      "email": "karim@example.com"
+    },
+    {
+      "id": "3",
+      "name": "Nusrat Jahan",
+      "email": "nusrat@example.com"
+    }
+  ],
+  "news": [
+    {
+      "id": "1",
+      "title": "Govt Announces New Tech Park",
+      "body": "A new state-of-the-art tech park will be established in Dhaka to boost the IT sector...",
+      "author_id": 1,
+      "comments": [
+        {
+          "id": 1,
+          "text": "Great initiative!",
+          "user_id": 2,
+          "timestamp": "2025-12-04T10:30:00Z"
+        },
+        {
+          "id": 2,
+          "text": "Hope this brings more jobs.",
+          "user_id": 3,
+          "timestamp": "2025-12-04T11:00:00Z"
+        },
+        {
+          "user_id": "1",
+          "text": "good"
+        },
+        {
+          "user_id": "1",
+          "text": "sadsadas"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Local Startup Wins Innovation Award",
+      "body": "A Dhaka-based startup has won an international innovation award for AI-driven solutions...",
+      "author_id": 2,
+      "comments": [
+        {
+          "user_id": "1",
+          "text": "nice"
+        },
+        {
+          "user_id": "1",
+          "text": "sadsa"
+        }
+      ]
+    }
+  ]
+}

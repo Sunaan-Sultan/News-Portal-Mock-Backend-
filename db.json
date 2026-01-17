@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": 1768662736088,
+      "username": "testuser",
+      "password": "$2b$10$nE9RMDkRMupFmtDR1Qr0UOMm2SxzIWGbbcu1exa0Fr4Kwpxfp9xIq",
+      "role": "user"
+    }
+  ],
+  "news": [
+    {
+      "id": 1768663602206,
+      "title": "My Test",
+      "body": "This is a test post.",
+      "author_id": 1768662736088,
+      "author_name": "testuser",
+      "comments": []
+    },
+    {
+      "id": 1768662904642,
+      "title": "My Postman Test",
+      "body": "This is a test post created via Postman API testing.",
+      "author_id": 1768662736088,
+      "author_name": "testuser",
+      "comments": []
+    }
+  ]
+}

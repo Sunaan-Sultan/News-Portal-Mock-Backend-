@@ -1,0 +1,30 @@
+{
+  "name": "news-portal-(mock-backend)",
+  "version": "1.0.0",
+  "description": "",
+  "main": "utils.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunaan-Sultan/News-Portal-Mock-Backend-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sunaan-Sultan/News-Portal-Mock-Backend-/issues"
+  },
+  "homepage": "https://github.com/Sunaan-Sultan/News-Portal-Mock-Backend-#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "node-cache": "^5.1.2"
+  }
+}

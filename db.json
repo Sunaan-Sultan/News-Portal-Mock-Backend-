@@ -9,17 +9,25 @@
   ],
   "news": [
     {
+      "id": 1769013342429,
+      "title": "vx",
+      "body": "cxzv",
+      "author_id": 1768662736088,
+      "author_name": "testuser",
+      "comments": [
+        {
+          "id": 1769013352187,
+          "text": "fgdg",
+          "user_id": 1768662736088,
+          "username": "testuser",
+          "timestamp": "2026-01-21T16:35:52.187Z"
+        }
+      ]
+    },
+    {
       "id": 1768663602206,
       "title": "My Test",
       "body": "This is a test post.",
-      "author_id": 1768662736088,
-      "author_name": "testuser",
-      "comments": []
-    },
-    {
-      "id": 1768662904642,
-      "title": "My Postman Test",
-      "body": "This is a test post created via Postman API testing.",
       "author_id": 1768662736088,
       "author_name": "testuser",
       "comments": []

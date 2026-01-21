@@ -39,6 +39,7 @@ window.logout = () => {
 
 // Wire UI functions
 window.handleSearch = ui.handleSearch;
+window.showNewsList = ui.showNewsList;
 window.changePage = ui.changePage;
 window.showCreatePage = ui.showCreatePage;
 window.submitNews = ui.submitNews;

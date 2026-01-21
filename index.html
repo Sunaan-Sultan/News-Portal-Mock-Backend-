@@ -5,81 +5,363 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Express News Portal</title>
     <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .hidden { display: none; }
-        .card { border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
-        .flex { display: flex; justify-content: space-between; align-items: center; }
-        input, textarea { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; margin-bottom: 10px; }
-        button { cursor: pointer; padding: 8px 15px; }
-        .error { color: red; margin-bottom: 10px; }
-        .pagination { margin-top: 20px; display: flex; gap: 10px; justify-content: center; }
-        nav { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 20px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hidden { 
+            display: none; 
+        }
+
+        nav {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        #nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #user-display {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .card { 
+            background: white;
+            border: none;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .auth-container {
+            max-width: 450px;
+            margin: 80px auto;
+        }
+
+        .auth-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .auth-card h2 {
+            color: #2d3748;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        input, textarea { 
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        button { 
+            cursor: pointer;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .error { 
+            color: #e53e3e;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #fff5f5;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .pagination { 
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #page-info {
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        #search-box {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .news-title {
+            color: #2d3748;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .news-meta {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .news-body {
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .news-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .news-actions button {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .comment-section {
+            margin-top: 40px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .comment-section h4 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .form-buttons button {
+            flex: 1;
+        }
+
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #718096;
+        }
+
+        .detail-header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .auth-card {
+                padding: 30px 25px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <nav>
+            <h2>📰 News Portal</h2>
+            <div id="nav-actions">
+                <span id="user-display"></span>
+                <button id="logout-btn" onclick="logout()" class="hidden btn-secondary">Logout</button>
+            </div>
+        </nav>
 
-    <nav class="flex">
-        <h2>News Portal</h2>
-        <div id="nav-actions">
-            <span id="user-display"></span>
-            <button id="logout-btn" onclick="logout()" class="hidden">Logout</button>
-        </div>
-    </nav>
+        <section id="auth-page">
+            <div id="login-form" class="auth-container">
+                <div class="auth-card">
+                    <h2>Welcome Back</h2>
+                    <input type="text" id="login-username" placeholder="Username">
+                    <input type="password" id="login-password" placeholder="Password">
+                    <p id="login-error" class="error hidden"></p>
+                    <button onclick="login()" style="width: 100%;">Login</button>
+                    <p class="auth-footer">Don't have an account? <a href="#" onclick="toggleAuth('register')">Register</a></p>
+                </div>
+            </div>
 
-    <section id="auth-page">
-        <div id="login-form">
-            <h2>Login</h2>
-            <input type="text" id="login-username" placeholder="Username">
-            <input type="password" id="login-password" placeholder="Password">
-            <p id="login-error" class="error"></p>
-            <button onclick="login()">Login</button>
-            <p>Don't have an account? <a href="#" onclick="toggleAuth('register')">Register</a></p>
-        </div>
+            <div id="register-form" class="auth-container hidden">
+                <div class="auth-card">
+                    <h2>Create Account</h2>
+                    <input type="text" id="reg-username" placeholder="Username">
+                    <input type="password" id="reg-password" placeholder="Password">
+                    <p id="reg-error" class="error hidden"></p>
+                    <button onclick="register()" style="width: 100%;">Register</button>
+                    <p class="auth-footer">Already have an account? <a href="#" onclick="toggleAuth('login')">Login</a></p>
+                </div>
+            </div>
+        </section>
 
-        <div id="register-form" class="hidden">
-            <h2>Register</h2>
-            <input type="text" id="reg-username" placeholder="Username">
-            <input type="password" id="reg-password" placeholder="Password">
-            <p id="reg-error" class="error"></p>
-            <button onclick="register()">Register</button>
-            <p>Already have an account? <a href="#" onclick="toggleAuth('login')">Login</a></p>
-        </div>
-    </section>
+        <section id="news-list-page" class="hidden">
+            <div class="search-container">
+                <input type="text" id="search-box" placeholder="🔍 Search news..." oninput="handleSearch(this.value)">
+                <button onclick="showCreatePage()">+ New Post</button>
+            </div>
+            
+            <div id="news-container"></div>
 
-    <section id="news-list-page" class="hidden">
-        <div class="flex">
-            <input type="text" id="search-box" placeholder="Search news..." oninput="handleSearch(this.value)" style="width: 70%;">
-            <button onclick="showCreatePage()">+ New Post</button>
-        </div>
-        
-        <div id="news-container"></div>
+            <div class="pagination">
+                <button onclick="changePage(-1)" id="prev-btn" class="btn-secondary">← Previous</button>
+                <span id="page-info">Page 1</span>
+                <button onclick="changePage(1)" id="next-btn" class="btn-secondary">Next →</button>
+            </div>
+        </section>
 
-        <div class="pagination">
-            <button onclick="changePage(-1)" id="prev-btn">Previous</button>
-            <span id="page-info">Page 1</span>
-            <button onclick="changePage(1)" id="next-btn">Next</button>
-        </div>
-    </section>
+        <section id="news-form-page" class="hidden">
+            <div class="card">
+                <h2 id="form-title" style="margin-bottom: 25px; color: #2d3748;">Create News</h2>
+                <input type="hidden" id="edit-id">
+                <input type="text" id="news-title" placeholder="Enter your title...">
+                <textarea id="news-body" rows="8" placeholder="Write your content here (minimum 20 characters)..."></textarea>
+                <div class="form-buttons">
+                    <button onclick="submitNews()">💾 Save Post</button>
+                    <button onclick="showNewsList()" class="btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </section>
 
-    <section id="news-form-page" class="hidden">
-        <h2 id="form-title">Create News</h2>
-        <input type="hidden" id="edit-id">
-        <input type="text" id="news-title" placeholder="Title">
-        <textarea id="news-body" rows="6" placeholder="Content (min 20 chars)"></textarea>
-        <button onclick="submitNews()">Save</button>
-        <button onclick="showNewsList()">Cancel</button>
-    </section>
-
-    <section id="detail-page" class="hidden">
-        <button onclick="showNewsList()">Back</button>
-        <div id="detail-content" style="margin-top: 20px;"></div>
-        
-        <div style="margin-top: 30px; background: #f4f4f4; padding: 15px;">
-            <h4>Add Comment</h4>
-            <textarea id="comment-text" placeholder="Your comment..."></textarea>
-            <button onclick="submitComment()">Post Comment</button>
-        </div>
-    </section>
+        <section id="detail-page" class="hidden">
+            <button onclick="showNewsList()" class="btn-secondary">← Back to List</button>
+            <div id="detail-content" class="detail-header"></div>
+            
+            <div class="comment-section">
+                <h4>💬 Add Comment</h4>
+                <textarea id="comment-text" placeholder="Share your thoughts..." rows="4"></textarea>
+                <button onclick="submitComment()" style="margin-top: 15px;">Post Comment</button>
+            </div>
+        </section>
+    </div>
 
     <script type="module" src="src/frontend/main.js"></script>
 </body>

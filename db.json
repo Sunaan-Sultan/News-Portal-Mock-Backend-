@@ -9,12 +9,27 @@
   ],
   "news": [
     {
-      "id": 1769013655720,
-      "title": "dsad",
-      "body": "asdas",
+      "id": 1769016892953,
+      "title": "dsfs",
+      "body": "fsdfs",
       "author_id": 1768662736088,
       "author_name": "testuser",
-      "comments": []
+      "comments": [
+        {
+          "id": 1769016896229,
+          "text": "cxvvcx",
+          "user_id": 1768662736088,
+          "username": "testuser",
+          "timestamp": "2026-01-21T17:34:56.229Z"
+        },
+        {
+          "id": 1769017014734,
+          "text": "hdhd",
+          "user_id": 1768662736088,
+          "username": "testuser",
+          "timestamp": "2026-01-21T17:36:54.734Z"
+        }
+      ]
     }
   ]
 }
